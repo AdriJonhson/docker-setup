@@ -1,0 +1,38 @@
+version: "3.5"
+
+services:
+  php_fpm:
+    build: ./services/php-fpm/
+    container_name: laravel_php_fpm
+    working_dir: /var/www/laravel
+    networks:
+      - app_network
+    volumes:
+      - ./../:/var/www/laravel
+
+  nginx:
+    image: nginx:1.15
+    container_name: laravel_nginx
+    working_dir: /var/www/laravel
+    networks:
+      - app_network
+    ports:
+      - "80:80"
+    volumes:
+      - ./../:/var/www/laravel
+      - ./services/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+
+  mysql:
+    image: mysql:5.7
+    container_name: laravel_mysql
+    networks:
+      - app_network
+    environment:
+      - MYSQL_DATABASE=docker_app
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=docker
+      - MYSQL_PASSWORD=secret
+
+networks:
+  app_network:
+    driver: bridge
