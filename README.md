@@ -1,9 +1,11 @@
 Comandos:
 
-docker-composer up --build -d
+docker-composer up --build -d: <b>Subir Containers</b>
 
-docker-compose stop
+docker-compose stop: <b>Derrubar os containers</b>
 
-docker exec -it <b>CONTAINER_NAME</b> <b>COMANDO</b>
+docker exec -it laravel_php_fpm bash: <b>Executar comandos no container</b>
 
-Ex.: docker exec -it <b>laravel_php_fpm</b> <b>bash</b>
+docker ps -a: <b>Ver todos os containers</b>
+
+docker rm $(docker ps -qa): <b>Remver todos os containers</b>
